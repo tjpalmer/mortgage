@@ -33,7 +33,9 @@ class LoanCalculator {
     let {loan} = this;
     let {principal, months, rate} = loan;
     rate /= 12 * 100;
-    loan.payment = principal * rate / (1 - (1 + rate) ** -months);
+    let payment = principal * rate / (1 - (1 + rate) ** -months);
+    payment = Math.ceil(payment * 100) / 100;
+    loan.payment = payment;
   }
 
 }
