@@ -58,12 +58,11 @@ class Store {
 }
 
 class LoanField extends Component<
-  {form: LoanForm, label: string, name: string, step: number}
+  {label: string, name: string, step: number, store: Store}
 > {
 
   change = () => {
-    let {form, name} = this.props;
-    let {store} = this.props.form.props;
+    let {name, store} = this.props;
     (store.loan as any)[name] = +this.input.value;
     store.update();
   };
@@ -71,7 +70,7 @@ class LoanField extends Component<
   input: HTMLInputElement;
 
   render() {
-    let {store} = this.props.form.props;
+    let {store} = this.props;
     return <tr>
       <td><label>{this.props.label}</label></td>
       <td>
@@ -93,13 +92,15 @@ class LoanField extends Component<
 class LoanForm extends Component<{store: Store}> {
 
   render() {
-    let {loan} = this.props.store;
+    let {store} = this.props;
     return <div>
       <table>
-        <LoanField form={this} label='Months' name='months' step={1}/>
-        <LoanField form={this} label='Payment' name='payment' step={0.01}/>
-        <LoanField form={this} label='Principal' name='principal' step={0.01}/>
-        <LoanField form={this} label='Rate' name='rate' step={0.125}/>
+        <LoanField label='Months' name='months' step={1} store={store}/>
+        <LoanField label='Payment' name='payment' step={0.01} store={store}/>
+        <LoanField
+          label='Principal' name='principal' step={0.01} store={store}
+        />
+        <LoanField label='Rate' name='rate' step={0.125} store={store}/>
       </table>
     </div>;
   }
