@@ -29,6 +29,16 @@ class LoanCalculator {
 
   loan: Loan;
 
+  updateAmortization() {
+    let {loan} = this;
+    let {principal, rate} = loan;
+    rate /= 12 * 100;
+    let payments: Payment[] = [];
+    for (let month = 0; month < loan.months; ++month) {
+      //
+    }
+  }
+
   updatePayment() {
     let {loan} = this;
     let {principal, months, rate} = loan;
@@ -37,6 +47,14 @@ class LoanCalculator {
     payment = Math.ceil(payment * 100) / 100;
     loan.payment = payment;
   }
+
+}
+
+interface Payment {
+
+  interest: number;
+  
+  principal: number;
 
 }
 
